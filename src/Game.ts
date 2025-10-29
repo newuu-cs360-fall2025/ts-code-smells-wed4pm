@@ -21,7 +21,11 @@ export class Game {
 
     // update game state
     this._lastSymbol = symbol;
-    this._board.AddTileAt(symbol, x, y);
+    this._board.AddTileAt({
+      Symbol: symbol,
+      X: x,
+      Y: y,
+    });
   }
 
   public Winner(): string {
@@ -96,9 +100,7 @@ class Board {
     return this._plays.find((t: Tile) => t.X == x && t.Y == y)!;
   }
 
-  public AddTileAt(symbol: string, x: number, y: number): void {
-    const tile: Tile = { X: x, Y: y, Symbol: symbol };
-
-    this._plays.find((t: Tile) => t.X == x && t.Y == y)!.Symbol = symbol;
+  public AddTileAt(tile: Tile): void {
+    this._plays.find((t: Tile) => t.X == tile.X && t.Y == tile.Y)!.Symbol = tile.Symbol;
   }
 }
